@@ -1,0 +1,39 @@
+package com.practices.teachers.configuration;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+@Configuration
+@ComponentScan(basePackages = "com.practices.teachers")
+@PropertySource(value = { "application.properties" })
+public class JdbcTemplateConfiguration {
+
+    @Autowired
+    private Environment env;
+ 
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getRequiredProperty("com.mysql.jdbc.Driver"));
+        dataSource.setUrl(env.getRequiredProperty("jdbc:mysql://localhost:3306/teachers"));
+        dataSource.setUsername(env.getRequiredProperty("teachers"));
+        dataSource.setPassword(env.getRequiredProperty("teachers"));
+        return dataSource;
+    }
+ 
+    @Bean
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.setResultsMapCaseInsensitive(true);
+        return jdbcTemplate;
+    }
+	
+}

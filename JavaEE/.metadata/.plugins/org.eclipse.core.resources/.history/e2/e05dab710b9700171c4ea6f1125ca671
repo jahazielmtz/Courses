@@ -1,0 +1,86 @@
+/**
+ * 
+ */
+package com.practices.teachers.dao;
+
+import java.util.List;
+
+import com.practices.teachers.model.Course;
+
+/**
+ * @author everardo_martinez
+ *
+ */
+public class CourseDaoImplJdbcTemplate extends AbstractSession implements CourseDao {
+
+	/**
+	 * 
+	 */
+	public CourseDaoImplJdbcTemplate() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/* (non-Javadoc)
+	 * @see com.practices.teachers.dao.CourseDao#saveCourse(com.practices.teachers.model.Course)
+	 */
+	@Override
+	public void saveCourse(Course course) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/* (non-Javadoc)
+	 * @see com.practices.teachers.dao.CourseDao#findCourseById(java.lang.Long)
+	 */
+	@Override
+	public Course findCourseById(Long idCourse) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.practices.teachers.dao.CourseDao#findAllCourses()
+	 */
+	@Override
+	public List<Course> findAllCourses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.practices.teachers.dao.CourseDao#findCourseByName(java.lang.String)
+	 */
+	@Override
+	public Course findCourseByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.practices.teachers.dao.CourseDao#findCoursesByIdTeacher(java.lang.Long)
+	 */
+	@Override
+	public List<Course> findCoursesByIdTeacher(Long idTeacher) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.practices.teachers.dao.CourseDao#updateCourse(com.practices.teachers.model.Course)
+	 */
+	@Override
+	public void updateCourse(Course course) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/* (non-Javadoc)
+	 * @see com.practices.teachers.dao.CourseDao#deleteCourse(java.lang.Long)
+	 */
+	@Override
+	public void deleteCourse(Long idCourse) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

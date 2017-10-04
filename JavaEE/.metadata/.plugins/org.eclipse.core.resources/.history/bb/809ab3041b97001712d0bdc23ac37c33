@@ -1,0 +1,71 @@
+package com.practices.teachers.dao;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
+
+import com.practices.teachers.model.Course;
+
+/**
+ * @author everardo_martinez
+ * DAO using HibernateConfiguration
+ */
+//@Repository //Commented to test JdbcTemplate
+@Transactional
+public class CourseDaoImplHibernate extends AbstractSession implements CourseDao {
+		
+	@Override
+	public void saveCourse(Course course) {
+		Long idNewCourse = (Long) getSession().save(course);
+		if (idNewCourse != null) {
+			System.out.println("Id del curso nuevo: " + idNewCourse);
+		} else {
+			System.out.println("Error al guardar curso");
+		}
+	}
+
+	@Override
+	public Course findCourseById(Long idCourse) {
+		return getSession().get(Course.class, idCourse);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Course> findAllCourses() {
+		return getSession().createQuery("from Course").list();
+	}
+
+	@Override
+	public Course findCourseByName(String name) {
+		return (Course) getSession().createQuery("from Course where name = :name")
+				.setParameter("name", name)
+				.uniqueResult();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Course> findCoursesByIdTeacher(Long idTeacher) {
+		return (List<Course>) getSession()
+				.createQuery("from Course c join c.teacher t "
+						+ "where t.idTeacher = :idTeacher")
+				.setParameter("idTeacher", idTeacher).list();
+	}
+
+	@Override
+	public void updateCourse(Course course) {
+		getSession().update(course);
+	}
+
+	@Override
+	public void deleteCourse(Long idCourse) {
+		Course course = findCourseById(idCourse);
+		if (course != null) {
+			getSession().delete(course);
+		} else {
+			System.out.println("Error al borrar curso");
+		}
+	}
+
+}

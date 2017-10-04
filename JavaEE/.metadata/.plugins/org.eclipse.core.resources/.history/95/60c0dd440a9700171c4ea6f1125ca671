@@ -1,0 +1,115 @@
+package com.practices.teachers.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.practices.teachers.model.Course;
+import com.practices.teachers.service.CourseService;
+
+@RestController //Similar to @Controller 
+@RequestMapping("/v1")
+public class CourseController {
+
+	@Autowired
+	CourseService _courseService;
+	
+	//POST
+	@RequestMapping(value = "/course", method = RequestMethod.POST)
+	public ResponseEntity<?> createCourse(@RequestBody Course course, UriComponentsBuilder uriBuilder) {
+		if(course.getName() == null || course.getName().isEmpty()) {
+			ResponseEntity.badRequest().build();
+		}
+		
+		_courseService.saveCourse(course);
+		
+		Course course2 = _courseService.findCourseByName(course.getName());
+		return ResponseEntity
+				.created(uriBuilder
+						.path("/v1/course/{id}")
+						.buildAndExpand(course2.getIdCourse())
+						.toUri())
+				.build();
+	}
+	
+	//GET
+	@RequestMapping(value = "/course/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Course> getCourseById(@PathVariable("id") Long idCourse) {
+		if(idCourse == null || idCourse <= 0L) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		Course course = _courseService.findCourseById(idCourse);
+		if(course == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		return ResponseEntity.ok(course);
+	}
+	
+	//GET
+//	@RequestMapping(value = "/course", method = RequestMethod.GET)
+	@GetMapping(value = "/course")
+	public ResponseEntity<List<Course>> getCourses(
+			@RequestParam(value = "name", required = false) String name, 
+			@RequestParam(value = "idTeacher", required = false) Long idTeacher) {
+		List<Course> lstCourses = new ArrayList<>();
+		if(name != null && !name.isEmpty()) {
+			Course course = _courseService.findCourseByName(name);
+			lstCourses.add(course);
+			return ResponseEntity.ok(lstCourses); 
+		} else
+		if(idTeacher != null && idTeacher > 0) {
+			lstCourses = _courseService.findCoursesByIdTeacher(idTeacher);
+			return ResponseEntity.ok(lstCourses); 
+		} else {
+			lstCourses = _courseService.findAllCourses();
+			return ResponseEntity.ok(lstCourses); 
+		}
+	}
+	
+	//PATCH
+	@RequestMapping(value = "/course/{id}", method = RequestMethod.PATCH)
+	public ResponseEntity<Course> updateCourse(@PathVariable("id") Long idCourse, @RequestBody Course course) {
+		if(idCourse == null || idCourse <= 0L) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		Course currentCourse = _courseService.findCourseById(idCourse);
+		if(course == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		currentCourse.setName(course.getName());
+		_courseService.updateCourse(currentCourse);
+		return ResponseEntity.ok(currentCourse);
+	}
+	
+	//DELETE
+	@RequestMapping(value = "/course/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteCourse(@PathVariable("id") Long idCourse) {
+		if(idCourse == null || idCourse <= 0L) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		Course course = _courseService.findCourseById(idCourse);
+		if(course == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		_courseService.deleteCourse(idCourse);
+		return ResponseEntity.ok().build();
+	}
+
+}

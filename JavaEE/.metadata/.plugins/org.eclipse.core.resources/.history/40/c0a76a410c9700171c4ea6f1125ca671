@@ -1,0 +1,78 @@
+package com.practices.teachers.dao;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import com.practices.teachers.model.Course;
+import com.practices.teachers.service.TeacherService;
+
+/**
+ * 
+ * @author everardo_martinez
+ * DAO using JdbcConfiguration
+ */
+@Repository
+//@Transactional
+public class CourseDaoImpl extends AbstractSession implements CourseDao {
+
+	@Autowired 
+    JdbcTemplate jdbcTemplate; 
+	
+	@Override
+	public void saveCourse(Course course) {
+
+	}
+
+	@Override
+	public Course findCourseById(Long idCourse) {
+		Course course = (Course) jdbcTemplate.queryForObject("SELECT * FROM course where id_course = ? ",
+	            new Object[] { idCourse }, new BeanPropertyRowMapper<Course>(Course.class));
+		return course;
+	}
+
+	@Override
+	public List<Course> findAllCourses() {
+//		return getSession().createQuery("from Course").list();
+		return null;
+	}
+
+	@Override
+	public Course findCourseByName(String name) {
+//		return (Course) getSession().createQuery("from Course where name = :name")
+//				.setParameter("name", name)
+//				.uniqueResult();
+		return null;
+	}
+
+	@Override
+	public List<Course> findCoursesByIdTeacher(Long idTeacher) {
+//		return (List<Course>) getSession()
+//				.createQuery("from Course c join c.teacher t "
+//						+ "where t.idTeacher = :idTeacher")
+//				.setParameter("idTeacher", idTeacher).list();
+		return null;
+	}
+
+	@Override
+	public void updateCourse(Course course) {
+//		getSession().update(course);
+	}
+
+	@Override
+	public void deleteCourse(Long idCourse) {
+//		Course course = findCourseById(idCourse);
+//		if (course != null) {
+//			getSession().delete(course);
+//		} else {
+//			System.out.println("Error al borrar curso");
+//		}
+	}
+
+}
