@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Desafío 2 - Transiciones cargando imagenes con B-lazy</title>
+	<link rel="stylesheet" type="text/css" href="css/desafio2.css">
+</head>
+<body>
+	<img data-src="images/img1.jpg">
+	<img data-src="images/img1.jpg">
+	<img data-src="images/img1.jpg">
+	<img data-src="images/img1.jpg">
+	<img data-src="images/img1.jpg">
+	<img data-src="images/img1.jpg">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.2/blazy.min.js"></script>
+	<script type="text/javascript">
+		var bLazy = new Blazy({
+			selector: 'img'
+		});
+	</script>
+</body>
+</html>

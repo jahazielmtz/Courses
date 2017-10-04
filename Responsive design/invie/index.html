@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Invie - tus mejores guitarras!!</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|Allerta' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/invie.css"/>
+    <!-- <link rel="stylesheet" media="(max-width: 800px)" type="text/css" href="css/media-query.css"> -->
+  </head>
+  <body>
+    <section id="portada" class="portada background"> <!-- portada -->
+      <header id="header" class="header contenedor"> <!-- header -->
+        <figure class="logotipo"> <!-- logotipo -->
+          <img src="images/invie.png" width="186" height="60" alt="Invie logotipo"/>
+        </figure>
+        <span class="burger-button icon-menu" id="burger-button"></span>
+        <nav class="menu" id="menu"> <!-- menu -->
+          <ul>
+            <li>
+              <a href="index.html">Home</a>
+            </li>
+            <li>
+              <a href="#guitarras">Guitarras</a>
+            </li>
+            <li>
+              <a href="precios.html">Precios</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <div class="contenedor">
+        <h1 class="titulo">Guitarras <span>invie</span>sibles</h1><!-- titulo -->
+        <h3 class="title-a">Sé la estrella de rock que siempre quisiste ser</h3><!-- resumen -->
+        <a class="button" href="#guitarras">Conoce mas</a><!-- boton -->
+      </div>
+    </section>
+    <section id="guitarras" class="guitarras contenedor"> <!-- guitarras -->
+      <h2>Nuestra guitarras</h2><!-- titulo -->
+      <div class="video-demo-contenedor">
+        <div class="video-demo">
+          <div class="video-responsive-contenedor">
+            <iframe class="video-responsive-src" width="560" height="315" src="https://www.youtube.com/embed/R1dW8M4EqYY" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      <article class="guitarra"> <!-- guitarra 1 -->
+        <img class="derecha" data-src="images/invie-acustica.png" alt="Guitarra Invie Acustica" width="350"/>
+        <div class="contenedor-guitarra-a">
+          <h3 class="title-b">Invie Acustica</h3>
+          <ol>
+            <li>Estilo vintage</li>
+            <li>Madera pura</li>
+            <li>Incluye estuche invisible de aluminio</li>
+          </ol>
+        </div>
+      </article>
+      <article class="guitarra b"> <!-- guitarra 2 -->
+        <img class="izquierda" data-src="images/invie-classic.png" alt="Guitarra Invie Classic" width="350"/>
+        <div class="contenedor-guitarra-b">
+          <h3 class="title-b">Invie Classic</h3>
+          <ol>
+            <li>Estilo vintage</li>
+            <li>Liviana</li>
+            <li>Inicia tu camino como Rockstar</li>
+          </ol>
+        </div>
+      </article>
+    </section>
+    <footer class="footer">
+      <div class="contenedor">
+        <div class="contacto">
+          <img data-src="images/invie-white.png" alt="logotipo blanco"/>
+          <a href="tel:+573024456678"><strong>Telefono</strong> <span>3024456678</span></a>
+          <a href="mailto:contacto@invie.com"><strong>E-mail</strong> <span>contacto@invie.com</span></a>
+        </div>
+        <form class="formulario">
+          <div class="col1">
+            <label for="nombre">Nombre</label>
+            <input type="text" required id="nombre" name="nombre"/>
+            <label for="email">E-mail</label>
+            <input type="email" required id="email" name="email"/>
+            <div class="sexo">
+              <label for="mujer">
+                <input type="radio" id="mujer" checked name="sexo" value="mujer"> mujer
+              </label>
+              <label for="hombre">
+                <input type="radio" id="hombre" name="sexo" value="hombre"> hombre
+              </label>
+            </div>
+            <div class="intereses">
+              <label for="cotizacion">
+                <input type="checkbox" checked id="cotizacion" name="intereses" value="cotizacion"> Cotización
+              </label>
+              <label for="reclamos">
+                <input type="checkbox" id="reclamos" name="intereses" value="reclamos"> Reclamos
+              </label>
+              <label for="comentarios">
+                <input type="checkbox" id="comentarios" name="intereses" value="comantarios"> Comentarios
+              </label>
+              <label for="otros">
+                <input type="checkbox" id="otros" name="intereses" value="otros"> Otros
+              </label>
+            </div>
+          </div>
+          <div class="col2">
+            <label for="comentarios">Comentarios</label>
+            <textarea name="comantarios" id="comentarios" cols="25" rows="7"></textarea>
+            <input type="submit" value="Enviar" class="button"/>
+          </div>
+        </form>
+      </div>
+    </footer>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.2/blazy.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script type="text/javascript">
+      var $consulta = window.matchMedia('(max-width: 500px)');
+      $consulta.addListener(mediaQuery);
+
+      var $burgerButton = document.getElementById('burger-button');
+      var $menu = document.getElementById('menu');
+      function toogleMenu(){
+        $menu.classList.toggle('active');
+      }
+      function showMenu(){
+        $menu.classList.add('active');
+      }
+      function hideMenu(){
+        $menu.classList.remove('active');
+      }
+      
+      function mediaQuery() {
+        if ($consulta.matches) {
+          console.log('se cumplio la condición');
+          $burgerButton.addEventListener('touchstart', toogleMenu);
+        } else {
+          console.log('no se cumplio la condición');
+          $burgerButton.removeEventListener('touchstart', toogleMenu);
+        }
+      }
+      mediaQuery();
+
+      var bLazy = new Blazy({
+        selector: 'img'
+      });
+
+      // Gestos touch
+      var $body = document.body;
+      var gestos = new Hammer($body);
+      gestos.on('swiperight', showMenu);
+      gestos.on('swipeleft', hideMenu);
+    </script>
+  </body>
+</html>
