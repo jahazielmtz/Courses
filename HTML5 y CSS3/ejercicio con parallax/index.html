@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Parallax</title>
+	<style type="text/css">
+		.conteiner {
+			height: 200vh;
+			width: 800px;
+			margin: 0 auto;
+			/*text-align: center;*/
+		}
+		.iphone {
+			display: inline-block;
+			margin-top: 150px;
+			position: relative;
+			transition: 0.1s;
+		}
+		.shape {
+			background-image: url('images/shape.jpg');
+			width: 128px;
+			height: 128px;
+			position: absolute;
+			top: 75px;
+			right: 161px;
+			background-position: -80px -85px;
+			-webkit-mask-image: url('images/apple-mask.png');
+			mask-image: url('images/apple-mask.png');
+		}
+	</style>
+</head>
+<body>
+	<section class="conteiner">
+		<figure class="iphone" id="iphone">
+			<img src="images/iphone.jpg">
+			<div class="shape" id="mask"></div>
+		</figure>
+	</section>
+
+	<script type="text/javascript">
+		const $iphone = document.getElementById('iphone');
+		const $mask = document.getElementById('mask');
+		window.addEventListener('scroll', function(e){
+			console.log(window.scrollY);
+			var positionY = 80 + window.scrollY/4;
+			var positionX = 85 + window.scrollY/4;
+			$mask.style.backgroundPosition = '-' + positionY + 'px -' + positionX + 'px';
+			$iphone.style.transform = 'rotate(' + window.scrollY*-0.10 + 'deg)'
+		})
+	</script>
+</body>
+</html>

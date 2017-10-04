@@ -1,0 +1,36 @@
+/*.logotipo {
+	display: inline-block;
+}*/
+
+* {
+	border: 1px solid black;
+}
+
+body {
+	margin-left: 200px;
+	margin-right: 200px;
+}
+
+.logotipo {
+	display: inline-block;
+}
+
+.menu {
+	display: inline-block;
+}
+
+.menu li {
+	display: inline-block;
+}
+
+#g1 {
+	position: 
+}
+
+#g2 {
+	float: left;
+}
+
+#l1 {
+	margin-left: 700px;
+}
