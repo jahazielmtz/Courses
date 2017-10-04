@@ -1,0 +1,7 @@
+LightSwitch
+OnCommand
+CommandPattern
+Switch
+Command
+Light
+OffCommand
