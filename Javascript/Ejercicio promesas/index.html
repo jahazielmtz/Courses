@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Promesas</title>
+</head>
+<body>
+	<h1 id="msg">Me estoy despertando</h1>
+	<div id="div_botones" style="display:none;">
+		<h2 id="pregunta"></h2>
+		<button id="si">Si</button>
+		<button id="no">No</button>
+	</div>
+	<script type="text/javascript">
+		const DESPERTAR = 1000;
+		const DUCHA = 3000;
+		const ARREGLARME = 3000;
+		const DESAYUNAR = 2000;
+		const MANEJAR = 5000;
+
+		const $msg = document.getElementById("msg");
+		const $botones = document.getElementById("div_botones");
+		const $pregunta = document.getElementById("pregunta");
+		const $btn_si = document.getElementById("si");
+		const $btn_no = document.getElementById("no");
+
+		const mostrarPregunta = function(pregunta, resolve, reject) {
+			$pregunta.textContent = pregunta;
+			$botones.style.display = "block";
+			$btn_si.addEventListener("click", () => {
+				resolve();
+			});
+			$btn_no.addEventListener("click", () => {
+				reject("Tarea no realizada");
+			});
+		}
+		const ocultarPregunta = () => {
+			$botones.style.display = "none";
+		}
+		const showError = (message) => {
+			ocultarPregunta();
+			$msg.style.color = "red";
+			$msg.textContent = message;
+		}
+
+		const despertar = function() {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					mostrarPregunta("¿Hay agua?", resolve, reject);
+				}, DESPERTAR);
+			});
+		}
+		const ducha = function() {
+			ocultarPregunta();
+			$msg.textContent = "Ahora me estoy bañando";
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve();
+				}, DUCHA);
+			});
+		}
+		const vestir = function() {
+			ocultarPregunta();
+			$msg.textContent = "Ahora me estoy vistiendo";
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					mostrarPregunta("¿Hay comida?", resolve, reject);
+				}, ARREGLARME);
+			});
+		}
+		const comer = function() {
+			ocultarPregunta();
+			$msg.textContent = "Ahora estoy comiendo";
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve();
+				}, DESPERTAR);
+			});
+		}
+		const manejar = function() {
+			ocultarPregunta();
+			$msg.textContent = "Voy rumbo al trabajo";
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve();
+				}, MANEJAR);
+			});
+		}
+
+		despertar()
+			.then(ducha)
+			.then(vestir)
+			.then(comer)
+			.then(manejar)
+			.catch(showError)
+
+
+		
+	</script>
+</body>
+</html>
