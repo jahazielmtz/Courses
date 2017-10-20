@@ -1,2 +1,0 @@
-Al guardar Curso, que se guarde con id_ticket.
-Poder guardar nickname de social media del teacher.
