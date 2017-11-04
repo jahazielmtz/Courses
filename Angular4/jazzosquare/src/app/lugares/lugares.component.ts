@@ -12,10 +12,11 @@ export class LugaresComponent {
   lat:number = 20.5706569;
   lng:number = -103.3483462;
   lugares = null;
+
   constructor(private lugaresService: LugaresService) {
     lugaresService.getLugares()
       .subscribe(lugares => {
-        this.lugares = lugares;
-      })
+        this.lugares = Object.keys(lugares).map((key) => lugares[key]);
+      });
   }
 } 

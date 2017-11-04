@@ -14,6 +14,7 @@ export class DetalleComponent {
     console.log('queryParams ', this.route.queryParams);
     console.log('Param action ', this.route.snapshot.queryParams['action']);
     this.id = this.route.snapshot.params['id'];
-    this.lugar = this.lugaresService.buscarLugar(this.id);
+    this.lugaresService.buscarLugar(this.id).subscribe(lugar => this.lugar = lugar);
+    debugger;
   }
 }

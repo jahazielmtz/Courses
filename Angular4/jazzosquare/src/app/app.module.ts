@@ -15,13 +15,14 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/firebase.environment';
 import { CrearComponent } from './crear/crear.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', component: LugaresComponent },
   { path: 'lugares', component: LugaresComponent },
   { path: 'detalle/:id', component: DetalleComponent },
   { path: 'contacto', component: ContactoComponent },
-  { path: 'crear', component: CrearComponent }
+  { path: 'crear/:id', component: CrearComponent }
 ]
 
 @NgModule({
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(environment.firebase, 'jazzosquare'),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [LugaresService],
   bootstrap: [AppComponent]
