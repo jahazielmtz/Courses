@@ -16,7 +16,11 @@ export class LugaresComponent {
   constructor(private lugaresService: LugaresService) {
     lugaresService.getLugares()
       .subscribe(lugares => {
-        this.lugares = Object.keys(lugares).map((key) => lugares[key]);
+        if (lugares) {
+          this.lugares = Object.keys(lugares).map((key) => lugares[key]);
+        }
+      }, err => {
+        console.log(err);
       });
   }
 } 
